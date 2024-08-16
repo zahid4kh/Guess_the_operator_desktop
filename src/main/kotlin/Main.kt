@@ -10,10 +10,12 @@ import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
 import org.jetbrains.skia.Color
+import kotlin.math.round
 
 @Composable
 @Preview
@@ -105,17 +107,19 @@ fun App() {
                         enabled = if (experiencedClicked || demonClicked){true} else if (beginnerClicked || intermediateClicked){false} else false)
                 }
                 Column{
-                    OutlinedTextField(modifier = Modifier.padding(start = 10.dp), value = "", onValueChange = {}, label = {Text("Result")})
+                    OutlinedTextField(modifier = Modifier.padding(start = 10.dp),
+                        value = if (beginnerClicked){beginner.result[0].toString()} else if (intermediateClicked){intermediate.result[0].toString()} else if (experiencedClicked){ experienced.result[0].toString()} else if (demonClicked){demon.result4[0].toString()} else "",
+                        onValueChange = {}, label = {Text("Result")})
                 }
             }
-
-// FIRST NUMBER
-
-
-
         }
     }
 }
+
+//        when (input) {
+//        result1[1] -> println("Correct!!, the operation was ${result1[1]}\n")
+//        else -> {println("Wrong...try again\n")}
+//    }
 
 fun main() = application {
     Window(onCloseRequest = ::exitApplication) {
