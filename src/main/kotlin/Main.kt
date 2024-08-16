@@ -1,5 +1,6 @@
 import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.foundation.background
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Button
 import androidx.compose.material.MaterialTheme
@@ -34,7 +35,7 @@ fun App() {
         Column(horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center,
             modifier = Modifier.fillMaxSize().background(MaterialTheme.colors.background)){
 
-            Row(horizontalArrangement = Arrangement.SpaceAround){
+            Row(horizontalArrangement = Arrangement.spacedBy(10.dp), modifier = Modifier.padding(bottom = 20.dp)){
                 Button(onClick = {beginnerClicked = !beginnerClicked}){
                     Text(text = "Beginner")
                 }
@@ -52,55 +53,65 @@ fun App() {
                 }
             }
 
-// FIRST NUMBER
-            OutlinedTextField(
-                value = if (beginnerClicked){
-                    beginner.num1.toString()
-                }else if (intermediateClicked){
-                    intermediate.num1.toString()
-                }else if (experiencedClicked){
-                    experienced.num1.toString()
-                }else if (demonClicked){
-                    demon.num1.toString()
-                }else {
-                    0.toString()
-                },
-                onValueChange = {if (beginnerClicked){beginner.num1 = it.toDouble()}else if (intermediateClicked){intermediate.num1 = it.toDouble()}else if (experiencedClicked){experienced.num1 = it.toDouble()} else if (demonClicked){demon.num1 = it.toDouble()}},
-                readOnly = true,
-                label = {Text("Number 1") },
-                enabled = beginnerClicked || intermediateClicked || experiencedClicked || demonClicked)
+            Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.SpaceEvenly){
+                Column{
+                    OutlinedTextField(
+                        value = if (beginnerClicked){
+                            beginner.num1.toString()
+                        }else if (intermediateClicked){
+                            intermediate.num1.toString()
+                        }else if (experiencedClicked){
+                            experienced.num1.toString()
+                        }else if (demonClicked){
+                            demon.num1.toString()
+                        }else {
+                            0.toString()
+                        },
+                        onValueChange = {if (beginnerClicked){beginner.num1 = it.toDouble()}else if (intermediateClicked){intermediate.num1 = it.toDouble()}else if (experiencedClicked){experienced.num1 = it.toDouble()} else if (demonClicked){demon.num1 = it.toDouble()}},
+                        readOnly = true,
+                        label = {Text("Number 1") },
+                        enabled = beginnerClicked || intermediateClicked || experiencedClicked || demonClicked)
 
 // SECOND NUMBER
-            OutlinedTextField(
-                value = if (beginnerClicked){
-                    beginner.num2.toString()
-                }else if (intermediateClicked){
-                    intermediate.num2.toString()
-                }else if (experiencedClicked){
-                    experienced.num2.toString()
-                }else if (demonClicked){
-                    demon.num2.toString()
-                }else {
-                    0.toString()
-                },
-                onValueChange = {if (beginnerClicked){beginner.num2 = it.toDouble()}else if (intermediateClicked){intermediate.num2 = it.toDouble()}else if (experiencedClicked){experienced.num2 = it.toDouble()} else if (demonClicked){demon.num2 = it.toDouble()} },
-                readOnly = true,
-                label = {Text("Number 2")},
-                enabled = beginnerClicked || intermediateClicked || experiencedClicked || demonClicked)
+                    OutlinedTextField(
+                        value = if (beginnerClicked){
+                            beginner.num2.toString()
+                        }else if (intermediateClicked){
+                            intermediate.num2.toString()
+                        }else if (experiencedClicked){
+                            experienced.num2.toString()
+                        }else if (demonClicked){
+                            demon.num2.toString()
+                        }else {
+                            0.toString()
+                        },
+                        onValueChange = {if (beginnerClicked){beginner.num2 = it.toDouble()}else if (intermediateClicked){intermediate.num2 = it.toDouble()}else if (experiencedClicked){experienced.num2 = it.toDouble()} else if (demonClicked){demon.num2 = it.toDouble()} },
+                        readOnly = true,
+                        label = {Text("Number 2")},
+                        enabled = beginnerClicked || intermediateClicked || experiencedClicked || demonClicked)
 
 // THIRD NUMBER
-            OutlinedTextField(
-                value = if (experiencedClicked){
-                    experienced.num3.toString()
-                }else if (demonClicked){
-                    demon.num3.toString()
-                }else {
-                    0.toString()
-                },
-                onValueChange = { if (experiencedClicked){experienced.num3 = it.toDouble()}else if (demonClicked){demon.num3 = it.toDouble()} },
-                readOnly = true,
-                label = {Text("Number 3")},
-                enabled = experiencedClicked || demonClicked)
+                    OutlinedTextField(
+                        value = if (experiencedClicked){
+                            experienced.num3.toString()
+                        }else if (demonClicked){
+                            demon.num3.toString()
+                        }else {
+                            0.toString()
+                        },
+                        onValueChange = { if (experiencedClicked){experienced.num3 = it.toDouble()} else if (demonClicked){demon.num3 = it.toDouble()} },
+                        readOnly = true,
+                        label = {Text("Number 3")},
+                        enabled = if (experiencedClicked || demonClicked){true} else if (beginnerClicked || intermediateClicked){false} else false)
+                }
+                Column{
+                    OutlinedTextField(modifier = Modifier.padding(start = 10.dp), value = "", onValueChange = {}, label = {Text("Result")})
+                }
+            }
+
+// FIRST NUMBER
+
+
 
         }
     }
